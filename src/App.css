@@ -1,38 +1,68 @@
-.App {
-  text-align: center;
+body {
+    padding: 15px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+    margin-left: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#mainPanel {
+    display: table;
+	table-layout: fixed;
+	margin-left: 15px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#mainPanel p {
+    display: table-caption;
+	caption-side: bottom;
 }
 
-.App-link {
-  color: #61dafb;
+#mainPanel .arrows {
+    display: table-caption;
+    caption-side: top;
+    width: 100%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.arrow {
+    font-size: 36px;
+    padding: 0px 15px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.arrow:hover{
+    color: #00f;
+}
+
+#rightArrow {
+    float: right;
+}
+
+#navigation {
+    margin-left: 15px;
+}
+
+.disabled {
+    color: #999;
+}
+
+.arrow.disabled:hover {
+    color:#999;
+}
+
+.pageLink {
+    padding-right:15px;
+    text-decoration: underline;
+    cursor:pointer;
+    color: #00f;
+}
+
+.current {
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+}
+
+#jumperBox {
+    margin-top:15px;
 }
