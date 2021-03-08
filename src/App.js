@@ -11,6 +11,7 @@ function App() {
     const [comicData, setComicData] = useState({src:"", alt:""});
     const [comicId, setComicId] = useState(null);
     const [maxId, setMaxId] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     function stepBack() {
         if (comicId > 1) {
@@ -49,43 +50,49 @@ function App() {
     one in every way, except that it supports CORS headers, and therefore is directly
     usable from the app. */
     useEffect(() => {
+        setIsLoading(true);
         if (comicId !== null) {
            fetch(`https://getxkcd.now.sh/api/comic?num=${comicId}`)
                .then((data) => {
-                    return data.json()
+                    return data.json();
                })
                .then((data) => {
                    setComicData(data);
+                   setIsLoading(false);
                })
         } else {
             fetch("https://getxkcd.now.sh/api/comic?num=latest")
                 .then((data) => {
-                     return data.json()
+                     return data.json();
                 })
                 .then((data) => {
                     setComicData(data);
                     setComicId(data.num);
                     setMaxId(data.num);
+                    setIsLoading(false);
                 })
         }
     }, [comicId]);
 
-  return (
+    if (isLoading) {
+        return ( <div>Loading....</div>)
+    }
+    return (
     <>
-    <Title title={comicData.title} month={comicData.month} day={comicData.day} year={comicData.year}/>
-    <div id="mainPanel">
-        <div id="arrows">
-            <LeftArrow isDisabled={comicId === 1} action={stepBack}/>
-            <RightArrow isDisabled={comicId === maxId} action={stepForward}/>
+        <Title title={comicData.title} month={comicData.month} day={comicData.day} year={comicData.year}/>
+        <div id="mainPanel">
+            <div id="arrows">
+                <LeftArrow isDisabled={comicId === 1} action={stepBack}/>
+                <RightArrow isDisabled={comicId === maxId} action={stepForward}/>
+            </div>
+            <Image url={comicData.img} alt={comicData.alt} />
         </div>
-        <Image url={comicData.img} alt={comicData.alt} />
-    </div>
-    <div id="navigation">
-        <Pagination currentId={comicId} maxId={maxId} action={stepTo}/>
-        <Jumper currentId={comicId} action={stepTo}/>
-    </div>
+        <div id="navigation">
+            <Pagination currentId={comicId} maxId={maxId} action={stepTo}/>
+            <Jumper currentId={comicId} action={stepTo}/>
+        </div>
     </>
-  );
+    );
 }
 
 export default App;
