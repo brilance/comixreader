@@ -2,7 +2,7 @@ body {
     padding: 15px;
 }
 
-h1 {
+h1, .date {
     margin-left: 20px;
 }
 

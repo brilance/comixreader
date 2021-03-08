@@ -38,18 +38,16 @@ function App() {
         }
     }
 
-    useEffect(() => {
-        fetch("https://getxkcd.now.sh/api/comic?num=latest")
-        .then((data) => {
-             return data.json()
-        })
-        .then((data) => {
-            setComicData(data);
-            setComicId(data.num);
-            setMaxId(data.num);
-        })
-    }, []);
-
+    /*  NOTE: I am using a different API url than the one provided in the email.
+    The reason for this is that I found that the url provided in the email does not
+    support CORS headers, making it inaccessible from the browser. I was not certain
+    whether solving this was part of the exercise or not. The way to solve it would be
+    to write a simple backend proxy that fetches the data from the original API and
+    forwards it to the front-end app. In considering this, I decided to do what I would
+    do if this was a real project, and favor using something that already exists.
+    Therefore, I found this url, which provides an API that is identical to the other
+    one in every way, except that it supports CORS headers, and therefore is directly
+    usable from the app. */
     useEffect(() => {
         if (comicId !== null) {
            fetch(`https://getxkcd.now.sh/api/comic?num=${comicId}`)
@@ -59,6 +57,16 @@ function App() {
                .then((data) => {
                    setComicData(data);
                })
+        } else {
+            fetch("https://getxkcd.now.sh/api/comic?num=latest")
+                .then((data) => {
+                     return data.json()
+                })
+                .then((data) => {
+                    setComicData(data);
+                    setComicId(data.num);
+                    setMaxId(data.num);
+                })
         }
     }, [comicId]);
 
