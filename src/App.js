@@ -8,11 +8,13 @@ import Pagination from './Pagination';
 import Jumper from './Jumper';
 
 function App() {
+    // state
     const [comicData, setComicData] = useState({src:"", alt:""});
     const [comicId, setComicId] = useState(null);
     const [maxId, setMaxId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    // interactivity
     function stepBack() {
         if (comicId > 1) {
             setComicId(comicId-1);
@@ -39,6 +41,7 @@ function App() {
         }
     }
 
+    // data fetching
     /*  NOTE: I am using a different API url than the one provided in the email.
     The reason for this is that I found that the url provided in the email does not
     support CORS headers, making it inaccessible from the browser. I was not certain
@@ -78,20 +81,20 @@ function App() {
         return ( <div>Loading....</div>)
     }
     return (
-    <>
-        <Title title={comicData.title} month={comicData.month} day={comicData.day} year={comicData.year}/>
-        <div id="mainPanel">
-            <div id="arrows">
-                <LeftArrow isDisabled={comicId === 1} action={stepBack}/>
-                <RightArrow isDisabled={comicId === maxId} action={stepForward}/>
+        <>
+            <Title title={comicData.title} month={comicData.month} day={comicData.day} year={comicData.year}/>
+            <div id="mainPanel">
+                <div id="arrows">
+                    <LeftArrow isDisabled={comicId === 1} action={stepBack}/>
+                    <RightArrow isDisabled={comicId === maxId} action={stepForward}/>
+                </div>
+                <Image url={comicData.img} alt={comicData.alt} />
             </div>
-            <Image url={comicData.img} alt={comicData.alt} />
-        </div>
-        <div id="navigation">
-            <Pagination currentId={comicId} maxId={maxId} action={stepTo}/>
-            <Jumper currentId={comicId} action={stepTo}/>
-        </div>
-    </>
+            <div id="navigation">
+                <Pagination currentId={comicId} maxId={maxId} action={stepTo}/>
+                <Jumper currentId={comicId} action={stepTo}/>
+            </div>
+        </>
     );
 }
 
