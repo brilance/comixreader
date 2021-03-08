@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Image from './Image.js';
-import LeftArrow from './LeftArrow';
-import RightArrow from './RightArrow';
-import Title from './Title';
-import Pagination from './Pagination';
-import Jumper from './Jumper';
+import Image from './components/Image';
+import LeftArrow from './components/LeftArrow';
+import RightArrow from './components/RightArrow';
+import Title from './components/Title';
+import Pagination from './components/Pagination';
+import Jumper from './components/Jumper';
 
 function App() {
     // state
